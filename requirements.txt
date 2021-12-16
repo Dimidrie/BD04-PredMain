@@ -1,3 +1,6 @@
 pandas
 matplotlib
 seaborn
+sqlalchemy
+psycopg2 # A Postgres driver used by sqlalchemy
+notebook
