@@ -69,5 +69,5 @@ Gradient Boosting onderzoek toevoegen
 SVM onderzoek toevoegen
 
 ## Neural Network
-![Neural Network](../images/neural_network.png "Neural Network")
-Neural Network onderzoek toevoegen
+![Logistic Regression](../images/logisticregression.jpg "Logistic Regression")
+LR onderzoek toevoegen
