@@ -21,8 +21,11 @@ Vervolgens hebben wij een [NASA Turbofan Engine dataset](https://4cda.com/intro-
 
 Uiteindelijk hebben wij een [Hard Drive failure dataset](https://www.backblaze.com/b2/hard-drive-test-data.html) gevonden. De gebruikte dataset bevat data van SSD's en HDD's per kwartaal, en de bijbehorende [SMART waardes](https://www.backblaze.com/blog/hard-drive-smart-stats/). Deze data komt van echte hard drives af, en is dus geen gesimuleerde data. Onze voorkeur ging uiteindelijk uit naar deze dataset.
 
+&nbsp;
 ## Eerste sample set beschrijven (waar we erachter kwamen dat schijven terug komen)
 
+
+&nbsp;
 ## Hard Drive failure dataset
 De data in de Hard Drive failure dataset komt voor uit statistieken gebaseerd op de harde schijven die Backblaze gebruikt in haar datacenter. Backblaze publiceert deze data sinds 2013, en per kwartaal van een jaar.
 
@@ -30,7 +33,8 @@ De data wordt, per kwartaal, in csv-bestanden gestopt per dag. Een csv-bestand v
 
 Wij hebben gekozen om voor dit project de data uit 2020 te gebruiken.
 
-### SSD's en HDD's
+&nbsp;
+## SSD's en HDD's
 Om accuraat te voorspellen wanneer een harde schijf zal falen heeft de projectgroep de insteek om onderscheid te maken tussen HDD's en SSD's aangezien beide schijftypen intern anders werken.
 
 
@@ -39,7 +43,7 @@ De organisatie Backblaze heeft zelf al onderzoek gedaan waar achterhaald is welk
 
 
 
-#### S.M.A.R.T waardes SSD <a class="anchor" id="smart_ssd"></a>
+### S.M.A.R.T waardes SSD <a class="anchor" id="smart_ssd"></a>
 
 | #       | Beschrijving                      | #       | Beschrijving               |
 | ------- | --------------------------------- | ------- | -------------------------- |
@@ -62,18 +66,21 @@ Aangezien Backblaze voor haar datasets een [artikel](https://www.backblaze.com/b
 
 
 
-#### Eigen ervaring
+### Eigen ervaring
 Om vast te stellen welke harde schijven, die meegenomen zijn in de gebruikte datasets van Backblaze, SSD's zijn is een inventarisatie gemaakt van alle schijf modellen. Uit deze inventarisatie blijkt dat in totaliteit een vijftal schijven SSD's zijn. Om uiteindelijk te categoriseren welke modellen SSD's zijn, is het benodigd om van de vijftal modellen waar S.M.A.R.T waardes van bekend zijn vast te stellen welke waardes onderling gebruikt worden. Hieruit blijkt dat de betreffende modellen alleen allemaal gebruik maken van de S.M.A.R.T waarde 233 (Media Wearout Indicator). Helaas is dit niet voldoende om in de toekomst accuraat vast te stellen welke schijven SSD's zijn en hier onderscheid uit te maken. Aanvullend, het blijkt dat een groot gedeelte van de eerder benoemde S.M.A.R.T waarden niet aanwezig zijn op de toegankelijke SSD modellen. Tevens wordt een groot gedeelte van deze S.M.A.R.T waardes ook gebruikt door HDD’s.
 
+&nbsp;
 ## Sample set
 Om de sample set te genereren, hebben wij er voor gekozen om veel SMART waardes weg te laten, en ons te focussen op de SMART waardes die de meeste correlatie hebben met de failure waarde. De SMART waardes die hierbij gebruikt worden, hebben wij bepaald op basis van een [onderzoek van Backblaze](https://www.backblaze.com/blog/what-smart-stats-indicate-hard-drive-failures/). Backblaze kiest voor deze 5 SMART waardes op basis van ervaring, en op basis van de input van producenten van harde schijven. Daarnaast hebben wij zelf nog twee SMART waardes hieraan toegevoegd, namelijk `SMART 9` (Power-On Hours, dus hoeveel uur de schijf aan heeft gestaan) en `SMART 194` (Temperature, dus de temperatuur van de schijf). Wij verwachten dat deze 7 SMART waardes het meeste te maken hebben met de failure van schijven.
 
+&nbsp;
 ## Sample set genereren
 Voor het genereren van de sample set hebben wij de data opgesplitst in 3 delen (januari tot en met juni, juli tot en met november en december), om per deel data cleaning toe te passen. Dit hebben wij gedaan omdat wij anders te maken kregen met memory errors. Deze memory errors kregen wij op een PC met 32GB RAM. 
 
 Uiteindelijk hebben we de verschillende delen gemerged om zo tot een dataset te komen met de gewenste SMART waardes voor het jaar 2020. Dit is terug te vinden in 
 notebook `1 - sample generating`.
 
+&nbsp;
 # SQL
 
 &nbsp;
@@ -88,6 +95,7 @@ Het predicten van maintenance van een hard drive zal gaan door te kijken naar de
 - Support Vector Machines
 - Neural Network
 
+&nbsp;
 ## Decision Trees
 
 Decision tree(s) zijn een niet-parametrische supervised machine learning methode die wordt gebruikt voor classificatie en regressie. Het doel is om een model te maken dat de waarde van een doelvariabele voorspelt door eenvoudige beslissingsregels te leren die zijn afgeleid van de gegevenskenmerken.
@@ -126,6 +134,7 @@ Om overfitting te voorkomen in een decision tree zijn een tweetal typen van prun
 
 - **Post-pruning**: Post-pruning, ook wel normal *pruning* genoemd, is de meest voorkomende manier voor het vereenvoudigen van een decision tree. Hier worden knooppunten en subbomen vervangen door bladeren omde complexiteit te verminderen. Pruning kan niet alleen de grootte aanzienlijk verkleinen, maar ook de nauwkeurigheid (accuracy) van de classificatie van onzichtbare objecten verbeteren. Het kan voorkmoen dat de nauwkeurigheid van de toewijzing op de trainingset verslechtert, maar de nauwkeurigheid van de classificatie eigenschappen van een decision tree neemt in het algemeen toe. Een methode om post-pruning toe te passen is middels [cost complexity pruning](https://scikit-learn.org/stable/auto_examples/tree/plot_cost_complexity_pruning.html) (ccp).
 
+&nbsp;
 ## Random Forests
 ![Random Forest](../images/random_forest.png "Random Forest")
 
@@ -134,6 +143,7 @@ Het random forest model is een model gebruikt voor o.a. classificatie. Het is ee
 
 De reden waarom een random forest goed past bij dit project is doordat het voorspellen van failure afhangt van meerdere features, namelijk de SMART waardes. Omdat er bij random forests maar steeds met een subset van features werkt, is deze snel toe te passen op de vele SMART waardes en zorgt dit ervoor dat dit snel berekend kan worden.
 
+&nbsp;
 ## Gradient Boosting Machines
 ![Gradient Boosting](../images/gradient_boosting.png "Gradient Boosting")
 
@@ -147,6 +157,7 @@ Deze procedure wordt vervolgens iteratief gebruikt met meerdere zwakke modellen.
 
 Gradient Boosting herdefinieert boosting als een numeriek optimalisatieprobleem, waarbij het doel is om de loss-functie van het model te minimaliseren, door ‘weak-learners’ toe te voegen middels gradient descent. Gradient descent is een iteratief algoritme, waarmee een lokaal minimum gevonden kan worden van een differentieerbare functie.
 
+&nbsp;
 ## Support Vector Machines
 ![Support Vector Machines](../images/support_vector_machine.jpg "Support Vector Machines")
 
@@ -155,6 +166,7 @@ Een Support Vector Machine is een model dat aan de hand van verschillende kenmer
 
 Dit model is geschikt voor dit project, omdat deze goed kan omgaan met fouten en/of ruis en computers gemakkelijk een SVM-model kunnen berekenen met wel duizenden dimensies.
 
+&nbsp;
 ## Logistic Regression
 ![Logistic Regression](../images/logicsticregression.jpg "Logistic Regression")
 
