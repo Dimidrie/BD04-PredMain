@@ -22,10 +22,6 @@ Vervolgens hebben wij een [NASA Turbofan Engine dataset](https://4cda.com/intro-
 Uiteindelijk hebben wij een [Hard Drive failure dataset](https://www.backblaze.com/b2/hard-drive-test-data.html) gevonden. De gebruikte dataset bevat data van SSD's en HDD's per kwartaal, en de bijbehorende [SMART waardes](https://www.backblaze.com/blog/hard-drive-smart-stats/). Deze data komt van echte hard drives af, en is dus geen gesimuleerde data. Onze voorkeur ging uiteindelijk uit naar deze dataset.
 
 &nbsp;
-## Eerste sample set beschrijven (waar we erachter kwamen dat schijven terug komen)
-
-
-&nbsp;
 ## Hard Drive failure dataset
 De data in de Hard Drive failure dataset komt voor uit statistieken gebaseerd op de harde schijven die Backblaze gebruikt in haar datacenter. Backblaze publiceert deze data sinds 2013, en per kwartaal van een jaar.
 
@@ -70,7 +66,15 @@ Aangezien Backblaze voor haar datasets een [artikel](https://www.backblaze.com/b
 Om vast te stellen welke harde schijven, die meegenomen zijn in de gebruikte datasets van Backblaze, SSD's zijn is een inventarisatie gemaakt van alle schijf modellen. Uit deze inventarisatie blijkt dat in totaliteit een vijftal schijven SSD's zijn. Om uiteindelijk te categoriseren welke modellen SSD's zijn, is het benodigd om van de vijftal modellen waar S.M.A.R.T waardes van bekend zijn vast te stellen welke waardes onderling gebruikt worden. Hieruit blijkt dat de betreffende modellen alleen allemaal gebruik maken van de S.M.A.R.T waarde 233 (Media Wearout Indicator). Helaas is dit niet voldoende om in de toekomst accuraat vast te stellen welke schijven SSD's zijn en hier onderscheid uit te maken. Aanvullend, het blijkt dat een groot gedeelte van de eerder benoemde S.M.A.R.T waarden niet aanwezig zijn op de toegankelijke SSD modellen. Tevens wordt een groot gedeelte van deze S.M.A.R.T waardes ook gebruikt door HDD’s.
 
 &nbsp;
-## Sample set
+## Eerste analyse sample set
+Voor een eerste sample set hebben wij een aantal modellen gekozen, en hier alle data van gefiltert, uit alle data van 4 jaar, om te komen tot 1 dataset met de gekozen modellen.
+
+Wat hier al snel bleek is dat veel harde schijven terug komen nadat ze gefailed zijn. Hier zat meestal een bepaalde tijd tussen (tussen de 3 en 9 maanden).
+Hier hebben wij Backblaze een mail over gestuurd, met de vraag hoe het komt dat harde schijven terug komen nadat ze gefaald zijn. Backblaze had hier echter geen concreet antwoord op.
+De meest logische verklaring die wij kunnen bedenken, is dat de harde schijven die falen, gedurende de downtime gerepareerd worden.
+
+&nbsp;
+## Eisen sample set
 Om de sample set te genereren, hebben wij er voor gekozen om veel SMART waardes weg te laten, en ons te focussen op de SMART waardes die de meeste correlatie hebben met de failure waarde. De SMART waardes die hierbij gebruikt worden, hebben wij bepaald op basis van een [onderzoek van Backblaze](https://www.backblaze.com/blog/what-smart-stats-indicate-hard-drive-failures/). Backblaze kiest voor deze 5 SMART waardes op basis van ervaring, en op basis van de input van producenten van harde schijven. Daarnaast hebben wij zelf nog twee SMART waardes hieraan toegevoegd, namelijk `SMART 9` (Power-On Hours, dus hoeveel uur de schijf aan heeft gestaan) en `SMART 194` (Temperature, dus de temperatuur van de schijf). Wij verwachten dat deze 7 SMART waardes het meeste te maken hebben met de failure van schijven.
 
 &nbsp;
