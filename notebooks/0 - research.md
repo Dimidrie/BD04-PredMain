@@ -40,31 +40,18 @@ De organisatie Backblaze heeft zelf al onderzoek gedaan waar achterhaald is welk
 #### S.M.A.R.T waardes SSD <a class="anchor" id="smart_ssd"></a>
 
 | #       | Beschrijving                      | #       | Beschrijving               |
-
 | ------- | --------------------------------- | ------- | -------------------------- |
-
 | **1**   | Read Error Rate                   | **194** | Temperature Celsius        |
-
 | **5**   | Reallocated Sectors Count         | **195** | Hardware ECC Recovered     |
-
 | **9**   | Power-on Hours                    | **198** | Uncorrectabel Sector Count |
-
 | **12**  | Power Cycle Count                 | **199** | UltraDMA CRC Error Count   |
-
 | **13**  | Soft Read Error Rate              | **201** | Soft Read Error Rate       |
-
 | **173** | SSD Wear Leveling Count           | **202** | Data Address Mark Errors   |
-
 | **177** | Wear Range Delta                  | **232** | Endurance Remaining        |
-
 | **179** | Used Reserved Block Count Total   | **233** | Media Wearout Indicator    |
-
 | **180** | Unused Reserved Block Count Total | **235** | Good Block Count           |
-
 | **181** | Program Fail Count Total          | **241** | Total LBAs Written         |
-
 | **182** | Erase Fail Count                  | **242** | Total LBAs Read            |
-
 | **192** | Unsafe Shutdown Count             |
 
 
