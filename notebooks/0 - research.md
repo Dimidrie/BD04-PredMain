@@ -21,6 +21,8 @@ Vervolgens hebben wij een [NASA Turbofan Engine dataset](https://4cda.com/intro-
 
 Uiteindelijk hebben wij een [Hard Drive failure dataset](https://www.backblaze.com/b2/hard-drive-test-data.html) gevonden. De gebruikte dataset bevat data van SSD's en HDD's per kwartaal, en de bijbehorende [SMART waardes](https://www.backblaze.com/blog/hard-drive-smart-stats/). Deze data komt van echte hard drives af, en is dus geen gesimuleerde data. Onze voorkeur ging uiteindelijk uit naar deze dataset.
 
+## Eerste sample set beschrijven (waar we erachter kwamen dat schijven terug komen)
+
 ## Hard Drive failure dataset
 De data in de Hard Drive failure dataset komt voor uit statistieken gebaseerd op de harde schijven die Backblaze gebruikt in haar datacenter. Backblaze publiceert deze data sinds 2013, en per kwartaal van een jaar.
 
@@ -61,7 +63,6 @@ Aangezien Backblaze voor haar datasets een [artikel](https://www.backblaze.com/b
 
 
 #### Eigen ervaring
-
 Om vast te stellen welke harde schijven, die meegenomen zijn in de gebruikte datasets van Backblaze, SSD's zijn is een inventarisatie gemaakt van alle schijf modellen. Uit deze inventarisatie blijkt dat in totaliteit een vijftal schijven SSD's zijn. Om uiteindelijk te categoriseren welke modellen SSD's zijn, is het benodigd om van de vijftal modellen waar S.M.A.R.T waardes van bekend zijn vast te stellen welke waardes onderling gebruikt worden. Hieruit blijkt dat de betreffende modellen alleen allemaal gebruik maken van de S.M.A.R.T waarde 233 (Media Wearout Indicator). Helaas is dit niet voldoende om in de toekomst accuraat vast te stellen welke schijven SSD's zijn en hier onderscheid uit te maken. Aanvullend, het blijkt dat een groot gedeelte van de eerder benoemde S.M.A.R.T waarden niet aanwezig zijn op de toegankelijke SSD modellen. Tevens wordt een groot gedeelte van deze S.M.A.R.T waardes ook gebruikt door HDD’s.
 
 ### Sample set
@@ -72,6 +73,8 @@ Voor het genereren van de sample set hebben wij de data opgesplitst in 3 delen (
 
 Uiteindelijk hebben we de verschillende delen gemerged om zo tot een dataset te komen met de gewenste SMART waardes voor het jaar 2020. Dit is terug te vinden in 
 notebook `1 - sample generating`.
+
+# SQL
 
 &nbsp;
 # Modellen
