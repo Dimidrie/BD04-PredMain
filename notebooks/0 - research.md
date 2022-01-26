@@ -1,10 +1,12 @@
 # BD04- Predictive maintenance
-## Casusgroep 7
-### Dimitri Batchev, Dwayne Debets, Rade Grbić, Martijn Remmen en Peter Roijen
-&nbsp;
-
-# Introductie
 In dit project wordt er gekeken naar predictive maintenance. Het idee achter predictive maintenance is dat door het monitoren van apparatuur of machines met sensoren, de life (of fail) cycle gemanaged kan worden en zo uitval van machines op tijd aangepakt kan worden.
+
+Auteurs:
+* Batchev, Dimitri
+* Debets, Dwayne
+* Grbić, Rade
+* Remmen, Martijn
+* Roijen, Peter
 
 &nbsp;
 # Datasets
