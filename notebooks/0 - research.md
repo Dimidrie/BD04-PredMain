@@ -73,6 +73,8 @@ Wat hier al snel bleek is dat veel harde schijven terug komen nadat ze gefailed 
 Hier hebben wij Backblaze een mail over gestuurd, met de vraag hoe het komt dat harde schijven terug komen nadat ze gefaald zijn. Backblaze had hier echter geen concreet antwoord op.
 De meest logische verklaring die wij kunnen bedenken, is dat de harde schijven die falen, gedurende de downtime gerepareerd worden.
 
+Tabel toevoegen die bovenstaand laat zien
+
 &nbsp;
 ## Eisen sample set
 Om de sample set te genereren, hebben wij er voor gekozen om veel SMART waardes weg te laten, en ons te focussen op de SMART waardes die de meeste correlatie hebben met de failure waarde. De SMART waardes die hierbij gebruikt worden, hebben wij bepaald op basis van een [onderzoek van Backblaze](https://www.backblaze.com/blog/what-smart-stats-indicate-hard-drive-failures/). Backblaze kiest voor deze 5 SMART waardes op basis van ervaring, en op basis van de input van producenten van harde schijven. Daarnaast hebben wij zelf nog twee SMART waardes hieraan toegevoegd, namelijk `SMART 9` (Power-On Hours, dus hoeveel uur de schijf aan heeft gestaan) en `SMART 194` (Temperature, dus de temperatuur van de schijf). Wij verwachten dat deze 7 SMART waardes het meeste te maken hebben met de failure van schijven.
@@ -106,7 +108,7 @@ Decision tree(s) zijn een niet-parametrische supervised machine learning methode
 
 - ***classification***: Een classification decision tree is een algoritme waarbij de doelvariabele vast of categorisch is. Het algoritme wordt vervolgens gebruikt om de "class" te identificeren waarbinnen een doelvariabele hoogstwaarschijnlijk zou vallen. Onderliggend bevatten classificatie algoritmes een [tweetal algoritmes](https://quantdare.com/decision-trees-gini-vs-entropy/) om impurities weg te werken, namelijk:
 
-    - **gini**: Het gini algoritme meet de frequentie waarmee een element van de dataset verkeerd wordt gelabeled wanneer het willekeurig wordt gelabeld. De minimumwaarde van de Gini Index is 0, maximumwaarde is 0.5. De minimumwaarde, oftewel optimale oplossing, komt voor wanneer een knooppunt zuiver is, dit betekent dat alle elementen in het knooppunt van één unieke class is. De maximumwaarde van een knooppunt wordt behaald op het moment de waarschijnlijkheid tussen twee classes hetzelfde is.
+    - **gini**: Het gini algoritme meet de frequentie waarmee een element van de dataset verkeerd wordt gelabeled wanneer het willekeurig wordt gelabeled. De minimumwaarde van de gini index is 0, maximumwaarde is 0.5. De minimumwaarde, oftewel optimale oplossing, komt voor wanneer een knooppunt zuiver is, dit betekent dat alle elementen in het knooppunt van één unieke class is. De maximumwaarde van een knooppunt wordt behaald op het moment de waarschijnlijkheid tussen twee classes hetzelfde is.
 
     - **entropy**: Entropy is een algoritme die de wanorde van de features met het doelwit aangeeft. Net als bij gini wordt de optimale splitsing gekozen door de functie met minder entropie te kiezen. De minimumwaarde van entropy is 0, maximumwaarde is 1. Het krijgt zijn maximumwaarde wanneer de waarschijnlijkheid van de twee classes hetzelfde is en een knoop is zuiver wanneer de entropie zijn minimumwaarde heeft.
 
@@ -120,7 +122,7 @@ Decision tree(s) zijn een niet-parametrische supervised machine learning methode
 
 ### Pruning
 
-Pruning is een data compressie techiniek in machine learning en zoek algoritmes dat de grootte van decision trees verkleint door het verwijderen van onnodige secties van een tree (leaves/conjunctions) waar redundante informatie in verwerkt staat.
+Pruning is een data compressie techniek in machine learning en zoek algoritmes dat de grootte van decision trees verkleint door het verwijderen van onnodige secties van een tree (leaves/conjunctions) waar redundante informatie in verwerkt staat.
 
 
 
@@ -139,19 +141,23 @@ Om overfitting te voorkomen in een decision tree zijn een tweetal typen van prun
 - **Post-pruning**: Post-pruning, ook wel normal *pruning* genoemd, is de meest voorkomende manier voor het vereenvoudigen van een decision tree. Hier worden knooppunten en subbomen vervangen door bladeren omde complexiteit te verminderen. Pruning kan niet alleen de grootte aanzienlijk verkleinen, maar ook de nauwkeurigheid (accuracy) van de classificatie van onzichtbare objecten verbeteren. Het kan voorkmoen dat de nauwkeurigheid van de toewijzing op de trainingset verslechtert, maar de nauwkeurigheid van de classificatie eigenschappen van een decision tree neemt in het algemeen toe. Een methode om post-pruning toe te passen is middels [cost complexity pruning](https://scikit-learn.org/stable/auto_examples/tree/plot_cost_complexity_pruning.html) (ccp).
 
 &nbsp;
-## Random Forests
+## Random Forest
+
+Random Forest is een supervised learning algoritme, gebruikt voor zowel classificatie als regressie. Bij Random Forest wordt er gebruik gemaakt van verschillende decision trees, normaliter getrained met de "bagging" methode. Het idee achter deze "bagging" methode is door verschillende learning modellen te combineren, het resultaat over het algemeen verbetert wordt.
+
+Simpel gezegd bouwt Random Forest als het ware meerdere decision trees op, en voegt deze samen om zo tot een accurate en stabiele predictie te komen. 
+
+Een voordeel van Random Forest is dat het algoritme gebruikt kan worden voor zowel classificatie als regressie problemen. Gezien de huidige machine learning systemen vooral bestaan uit classificatie en regressie, is dit een groot voordeel.
+
+Onderstaand is een Random Forest structuur te zien, met twee trees:
+
 ![Random Forest](../images/random_forest.png "Random Forest")
 
-&nbsp;
-Het random forest model is een model gebruikt voor o.a. classificatie. Het is een verzameling van verschillende decision trees. Door gebruik te maken van bagging en feature randomness op deze decision trees wordt er een “forest” gecreeërd die bestaat uit meerdere trees die niet gecorreleerd zijn met elkaar. Deze forest is in de meeste gevallen meer accuraat dan één enkele tree \cite{RandomForest}.
-
-De reden waarom een random forest goed past bij dit project is doordat het voorspellen van failure afhangt van meerdere features, namelijk de SMART waardes. Omdat er bij random forests maar steeds met een subset van features werkt, is deze snel toe te passen op de vele SMART waardes en zorgt dit ervoor dat dit snel berekend kan worden.
+De reden waarom een Random Forest goed past bij dit project is doordat het voorspellen van failure afhangt van meerdere features, namelijk de SMART waardes. Omdat er bij Random Forests maar steeds met een subset van features werkt, is deze snel toe te passen op de vele SMART waardes en zorgt dit ervoor dat dit snel berekend kan worden.
 
 &nbsp;
-## Gradient Boosting Machines
-![Gradient Boosting](../images/gradient_boosting.png "Gradient Boosting")
-
-&nbsp;
+## Gradient Boosting
+### Boosting
 Boosting is een modelleringstechniek waarbij geprobeerd wordt om een sterke classifier te bouwen uit een bepaald aantal zwakke classifiers. Dit wordt gedaan door een model te bouwen op basis van een serie zwakke modellen.
 
 - Ten eerste wordt, op basis van de trainingsdata, een model gebouwd.
@@ -159,20 +165,30 @@ Boosting is een modelleringstechniek waarbij geprobeerd wordt om een sterke clas
 
 Deze procedure wordt vervolgens iteratief gebruikt met meerdere zwakke modellen. De procedure stopt wanneer de volledige trainingsdataset correct is voorspeld, of het maximale aantal modellen is toegevoegd.
 
+De twee meest gebruikte boosting algoritmes in de afgelopen jaren zijn Adaptive Boosting (AdaBoost) en Gradient Boosting.
+
+### Gradient Boosting
 Gradient Boosting herdefinieert boosting als een numeriek optimalisatieprobleem, waarbij het doel is om de loss-functie van het model te minimaliseren, door ‘weak-learners’ toe te voegen middels gradient descent. Gradient descent is een iteratief algoritme, waarmee een lokaal minimum gevonden kan worden van een differentieerbare functie.
+
+Gezien Gradient Boosting probeert om de loss-functie te minimaliseren, is het mogelijk om verschillende loss-functies te gebruiken, waardoor Gradient Boosting een flexibele techniek is.
+
+Onderstaand is een diagram te zien met de werking van Gradient Boosting:
+![Gradient Boosting](../images/gradient_boosting.png "Gradient Boosting")
 
 &nbsp;
 ## Support Vector Machines
-![Support Vector Machines](../images/support_vector_machine.jpg "Support Vector Machines")
+Een Support Vector Machine is een model dat aan de hand van verschillende kenmerken objecten kan classificeren. Het model maakt gebruikt van een lijn (in 2D) of een hypervlak (hyperplane) om zo punten in een vectorruimte te scheiden in klassen. Een SVM-algoritme maakt de scheiding op basis van de marge zo groot mogelijk en gelijkmatig te maken tussen de meest nabijgelegen kenmerken van een klasse. De naam komt van de meest nabijgelegen kenmerken die ook wel support vectors worden genoemd.
 
-&nbsp;
-Een Support Vector Machine is een model dat aan de hand van verschillende kenmerken objecten kan classificeren. Het model maakt gebruikt van een lijn (in 2D) of een hypervlak (Hyperplane) om zo punten in een vectorruimte te scheiden in klassen. Een SVM-algoritme maakt de scheiding op basis van de marge zo groot mogelijk en gelijkmatig te maken tussen de meest nabijgelegen kenmerken van een klasse. De naam komt van de meest nabijgelegen kenmerken die ook wel support vectors worden genoemd.
+![Support Vector Machines](../images/support_vector_machine.jpg "Support Vector Machines")
 
 Dit model is geschikt voor dit project, omdat deze goed kan omgaan met fouten en/of ruis en computers gemakkelijk een SVM-model kunnen berekenen met wel duizenden dimensies.
 
 &nbsp;
 ## Logistic Regression
+Logistic Regression wordt gebruikt om voorspellingen te maken wanneer de variable (ook wel de target) categorisch is. Logistic Regression is een extensie op het Linear Regression model voor classificatie problemen.
+
+De voorspellingen die het Logistic Regression model maakt, worden bepaald door de relaties tussen een of meerdere independent variables te analyseren.
+
 ![Logistic Regression](../images/logicsticregression.jpg "Logistic Regression")
 
-&nbsp;
-LR onderzoek toevoegen
+Logistic Regression past goed bij dit project, gezien wij een failure (ja of nee) willen voorspellen.
