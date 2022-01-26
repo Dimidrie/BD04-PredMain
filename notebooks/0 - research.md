@@ -88,6 +88,16 @@ notebook `1 - sample generating`.
 
 &nbsp;
 # SQL
+Omdat de dataset veel te groot was om volledig in het geheugen te kunnen passen is overwogen om een SQL database te gebruiken. Deze database is gehost in Azure middels de [Azure Database for PostgrSQL](https://docs.microsoft.com/en-us/azure/postgresql/overview) resource. Dit is een 'serverless' resource en houdt in dat er geen server beheerd hoeft te worden en dus kan resulteren in een tijdsbesparing.
+
+De dataset is geupload naar het database door over alle csv's te lopen en één voor één te uploaden door gebruik te maken van pandas [`to_sql()` method](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.to_sql.html). Deze method kan worden gebruikt op een `DataFrame` en zet deze om naar een SQL query.
+
+## Conclusie
+Gedurende het uploaden van de dataset is vastgesteld dat de `to_sql()` methode van Pandas [zeer langzaam is](https://stackoverflow.com/a/58010445). Dit zou opgelost kunnen worden door de `method='multi'` parameter toe te voegen, dit resulteerde echter in zeer hoog verbruik van geheugen waardoor de work-around niet toegepast kon worden. Uiteindelijk is hier geen oplossing voor gevonden.
+
+Binnen Azure was er een limiet van €100,-. Dit was uiteindelijk niet voldoende om het database gedurende de gehele casus in stand te houden ondanks het uitschakelen van de resource wanneer deze niet gebruikt werd.
+
+Gebruikmaken van SQL voor een dataset van deze grootte zou verschillende voordelen hebben gehad. waaronder het niet hoeven downloaden van de gehele dataset en efficienter gebruik kunnen maken van geheugen op de werkstations.
 
 &nbsp;
 # Modellen
