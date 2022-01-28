@@ -22,5 +22,5 @@ Om de notebooks zelf uit te kunnen voeren
 1. *Optioneel* Maak een [Python Virtual Environment](https://docs.python.org/3/tutorial/venv.html) met `python3 -m venv venv`
 2. *Optioneel* indien je een Virtual Environment hebt gemaakt, activeer deze met *Windows:* `venv\Scripts\activate.bat`, *Unix/MacOS:* `source venv/bin/activate`
 3. Installeer de dependencies: `pip install -r requirements.txt`
-4. Het is nodig om [de dataset hier te downloaden](https://www.backblaze.com/b2/hard-drive-test-data.html). De downloadlinks zijn te vinden helemaal onderaan de pagina *"Downloading the Raw Hard Drive Test Data"*. Onze Notebooks zijn gemaakt met de data van heel 2020 (4 kwartalen). Pak deze datasets uit in de folder `data/raw`.
+4. Het is nodig om [de dataset hier te downloaden](https://www.backblaze.com/b2/hard-drive-test-data.html). De downloadlinks zijn te vinden helemaal onderaan de pagina *"Downloading the Raw Hard Drive Test Data"*. Onze Notebooks zijn gemaakt met de data van heel 2020 (4 kwartalen). Pak deze datasets uit in de folder `data/raw`. (zodat alle csv's in de `raw` folder staan)
 5. Voer nu het notebook `1 - sample generating` volledig uit. **Let op: Hier wordt een grote hoeveelheid aan data verwerkt (32gb werkgeheugen aangeraad).**
